@@ -344,7 +344,7 @@ with app.app_context():
             city="Orlando",
             state="FL",
             tags="security,python,networking",
-            interests="dancing,singing,acting", 
+            interests="dancing,singing,acting, painting, video editing", 
             seo="SEO Alternative Investments"),
 
         User(
