@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Hello, {{ user.first_name }}!</h1>
+
+
+  <div class="card">
+  <div class="card-header">
+    {{user.first_name}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Welcome to Your User Dashboard!</h5>
+    <p class="card-text">
+        <strong>Name: </strong> {{user.first_name}}</br>
+        <strong>Email: </strong>{{user.email}} </br>
+        <strong>Phone Number: </strong>{{user.phone_number}} </br>
+        <strong>City: </strong> {{user.city}}</br>
+        <strong>State: </strong> {{user.state}}</br>
+        <strong>Tags: </strong> {{user.tags}}</br>
+        <strong>Interests: </strong>{{user.interests}} </br>
+        <strong>SEO Programs: </strong>{{user.seo}} </br>
+        <strong>ID: </strong>{{user.id}} </br>
+    </p>
+    <a href="/logout" class="btn btn-secondary btn-sm">Logout</a>
+    <a href="{{ url_for('profile.update_profile', id=user.id) }}" class="btn btn-secondary btn-sm">Update Profile</a>
+    <a href="{{ url_for('profile.delete', id=user.id) }}" class="btn btn-secondary btn-sm">Delete Profile</a>
+ 
+  </div>
+</div>
+  </div>
+</div>
+</div>
+{% endblock %}

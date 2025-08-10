@@ -1,0 +1,64 @@
+.custom-card-text {
+  color: #fff3f3;
+}
+
+.custom-card-text .card-title {
+  color: #4e0202;
+  font-weight: bold;
+}
+
+.bg-light {
+  background-color: rgba(193, 23, 23, 0.518) !important;
+}
+
+.custom-card-btn{
+    background-color: rgb(128, 0, 17) !important;
+    border-color: rgba(253, 112, 112, 0.699) !important;
+}
+
+.custom-card-text:hover {
+  background: #480000;
+  color: white;
+  .card-title {
+    color: #f8d7da;
+  }
+    .custom-card-btn{
+    background-color: rgb(255, 133, 149) !important;
+    border-color: rgba(255, 255, 255, 0.699) !important;
+    }
+}
+
+
+
+
+
+
+.custom-card-text-i {
+  color: #fff3f3;
+}
+
+.custom-card-text-i .card-title-i {
+  color: #ffb8b8;
+  font-weight: bold;
+}
+
+.bg-light-i {
+  background-color: rgba(73, 9, 9, 0.943) !important;
+}
+
+.custom-card-btn-i{
+    background-color: rgb(188, 142, 148) !important;
+    border-color: rgba(243, 169, 169, 0.699) !important;
+}
+
+.custom-card-text-i:hover {
+  background: #e36262c8;
+  color: white;
+  .card-title-i {
+    color: #fff3f4;
+  }
+  .custom-card-btn-i{
+    background-color: rgb(98, 28, 38) !important;
+    border-color: rgba(255, 255, 255, 0.699) !important;
+}
+}
