@@ -23,10 +23,11 @@
         <strong>SEO Programs: </strong>{{user.seo}} </br>
         <strong>ID: </strong>{{user.id}} </br>
     </p>
+    {% if current_user.id == user.id %}
     <a href="/logout" class="btn btn-secondary btn-sm">Logout</a>
     <a href="{{ url_for('profile.update_profile', id=user.id) }}" class="btn btn-secondary btn-sm">Update Profile</a>
     <a href="{{ url_for('profile.delete', id=user.id) }}" class="btn btn-secondary btn-sm">Delete Profile</a>
- 
+    {%endif%}
   </div>
 </div>
   </div>

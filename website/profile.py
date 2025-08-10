@@ -64,3 +64,11 @@ def delete(id):
 
     return redirect(url_for("auth.sign_up"))
 
+
+@profile.route('/profile/<int:id>')
+@login_required
+def view_profile(id):
+    user = User.query.get_or_404(id)
+    return render_template("profile.html", user=user)
+
+
