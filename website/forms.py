@@ -12,3 +12,8 @@ class UpdateProfileForm(FlaskForm):
     interests = StringField('Interests')
     seo = StringField('SEO Programs')
     submit = SubmitField('Update Profile')
+    
+    
+class SearchForm(FlaskForm):
+    searched = StringField("Search", validators=[DataRequired()])
+    submit = SubmitField("Search")

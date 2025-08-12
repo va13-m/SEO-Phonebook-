@@ -2,20 +2,62 @@
 {% block title %}Tag: {{ tag_name }}{% endblock %}
 
 {% block content %}
-<h1>Tag: {{ tag_name }}</h1>
+<div style="display: flex; gap: 20px;">
+  
+  <!-- Chat Column -->
+  <div style="flex: 1; border: 1px solid #ccc; padding: 10px;">
+    <h3>Chat for "{{ tag_name }}"</h3>
+    <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 5px;"></div>
+    <div style="margin-top: 10px;">
+      <input type="text" id="message" placeholder="Type a message..." style="width: 80%;" />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
 
-{% if users %}
-    <ul class="list-group mt-3">
+  <!-- Users Column -->
+  <div style="flex: 1;">
+    <h3>People with this tag</h3>
+    {% if users %}
+      <ul class="list-group">
         {% for u in users %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="{{ url_for('profile.view_profile', id=u.id) }}">
-                {{ u.first_name }}
-            </a>
-            <span class="text-muted">{{ u.city }}, {{ u.state }}</span>
+          <a href="{{ url_for('profile.view_profile', id=u.id) }}">{{ u.first_name }}</a>
+          <span class="text-muted">{{ u.city }}, {{ u.state }}</span>
         </li>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>No users found for this tag.</p>
-{% endif %}
+      </ul>
+    {% else %}
+      <p>No users found for this tag.</p>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script>
+  var socket = io();
+  var tagName = "{{ tag_name }}";
+  var userName = "{{ current_user.first_name }}";
+
+  socket.emit("join_tag_room", { tag: tagName, name: userName });
+
+  const messagesDiv = document.getElementById("messages");
+  const createMessage = (name, msg) => {
+    const el = document.createElement("div");
+    el.innerHTML = `<strong>${name}:</strong> ${msg}`;
+    messagesDiv.appendChild(el);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  };
+
+  socket.on("message", (data) => {
+    createMessage(data.name, data.message);
+  });
+
+  document.getElementById("send-btn").onclick = () => {
+    const messageInput = document.getElementById("message");
+    if (messageInput.value.trim() !== "") {
+      socket.emit("message", { tag: tagName, name: userName, message: messageInput.value });
+      messageInput.value = "";
+    }
+  };
+</script>
 {% endblock %}

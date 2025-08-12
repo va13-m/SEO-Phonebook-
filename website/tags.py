@@ -1,13 +1,34 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_socketio import join_room, send
+import socketio
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
- 
+from . import socketio
+
 import random 
 
  
 tags = Blueprint('tags', __name__)
+
+tag_messages = {}
+
+@socketio.on("join_tag_room")
+def join_tag_room(data):
+    tag_name = data["tag"]
+    join_room(tag_name)
+    if tag_name not in tag_messages:
+        tag_messages[tag_name] = []
+    send({"name": "System", "message": f"{data['name']} has joined the chat"}, to=tag_name)
+
+@socketio.on("message")
+def handle_message(data):
+    tag_name = data["tag"]
+    content = {"name": data["name"], "message": data["message"]}
+    tag_messages[tag_name].append(content)
+    send(content, to=tag_name)
+
 
 @tags.route('/tags/<tag_name>')
 @login_required

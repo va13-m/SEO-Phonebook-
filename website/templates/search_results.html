@@ -1,0 +1,15 @@
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if users %}
+  <ul>
+    {% for u in users %}
+      <li>
+        <a href="{{ url_for('profile.profile_view', id=u.id) }}">
+          {{ u.first_name }} ({{ u.email }})
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No matches found.</p>
+{% endif %}

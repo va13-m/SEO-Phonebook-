@@ -1,8 +1,21 @@
 {% extends "base.html" %}
-<title>{% block title %}Home{% endblock %}</title>
+{% block title %}Tag: {{ tag_name }}{% endblock %}
 
 {% block content %}
-</br>
+<h1>interest: {{ tag_name }}</h1>
 
-<h1>interest page {{interest_name}}</h1>
-{%endblock%}
+{% if users %}
+    <ul class="list-group mt-3">
+        {% for u in users %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('profile.view_profile', id=u.id) }}">
+                {{ u.first_name }}
+            </a>
+            <span class="text-muted">{{ u.city }}, {{ u.state }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No users found for this tag.</p>
+{% endif %}
+{% endblock %}

@@ -58,20 +58,28 @@
       {% endif %}
     </ul>
 
-    {% if user.is_authenticated %}
-    <form class="form-inline my-2 my-lg-0 mr-3">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <a href="/profile" class="nav-link p-0">
-      <img
-        src="https://cdn.pfps.gg/pfps/2301-default-2.png"
-        alt="Profile"
-        class="rounded-circle"
-        style="width: 40px; height: 40px; object-fit: cover;"
-      />
-    </a>
-    {% endif %}
+{% if user.is_authenticated %}
+<form class="form-inline my-2 my-lg-0 position-relative" onsubmit="return false;">
+  <input id="liveSearch" 
+         class="form-control mr-sm-2" 
+         type="search" 
+         placeholder="Search" 
+         aria-label="Search" 
+         autocomplete="off" />
+  <div id="searchResults" 
+       class="dropdown-menu" 
+       style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 1050; display:none;">
+  </div>
+</form>
+<a href="/profile" class="nav-link p-0">
+  <img
+    src="https://cdn.pfps.gg/pfps/2301-default-2.png"
+    alt="Profile"
+    class="rounded-circle"
+    style="width: 40px; height: 40px; object-fit: cover;"
+  />
+</a>
+{% endif %}
   </div>
 </nav>
 
@@ -111,5 +119,45 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
+
+<script>
+document.getElementById("liveSearch").addEventListener("input", function() {
+    let query = this.value.trim();
+    let resultsBox = document.getElementById("searchResults");
+
+    if (query.length < 1) {
+        resultsBox.innerHTML = "";
+        resultsBox.style.display = "none";
+        return;
+    }
+
+    fetch(`/search_users?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            resultsBox.innerHTML = "";
+            if (data.length > 0) {
+                data.forEach(user => {
+                    let item = document.createElement("a");
+                    item.href = `/profile/${user.id}`;
+                    item.classList.add("dropdown-item");
+                    item.innerHTML = highlightMatch(user.name, query) + ` <small>(${user.email})</small>`;
+                    resultsBox.appendChild(item);
+                });
+                resultsBox.style.display = "block";
+            } else {
+                resultsBox.innerHTML = "<span class='dropdown-item disabled'>No results</span>";
+                resultsBox.style.display = "block";
+            }
+        });
+});
+
+function highlightMatch(text, query) {
+    let regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, "<mark>$1</mark>");
+}
+</script>
+
+
   </body>
 </html>

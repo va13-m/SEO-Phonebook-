@@ -38,7 +38,13 @@ def sign_up():
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-
+        phone_number = request.form.get('phone_number')
+        city = request.form.get('city')
+        state = request.form.get('state')
+        tags = request.form.get('tags')
+        interests = request.form.get('interests')
+        seo = request.form.get('seo')
+        
         user = User.query.filter_by(email=email).first()
 
         if user:
@@ -47,13 +53,26 @@ def sign_up():
             flash('Email must be greater than 4 characters', category='error')
         elif len(first_name) < 2:
             flash('First Name must be greater than 1 characters', category='error')
+        elif len(phone_number) != 10:
+            flash('Phone number must be 10 characters', category='error')
+        elif len(state) != 2:
+            flash('Use state abbreviation', category='error')  
         elif password1 != password2:
             flash('Passwords don\'t match', category='error')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='pbkdf2:sha256'))
+            new_user = User(
+                email=email,
+                first_name=first_name,
+                phone_number=phone_number,
+                city=city,
+                state=state,
+                tags=tags,
+                interests=interests,
+                seo=seo,
+                password=generate_password_hash(password1, method='pbkdf2:sha256')
+            )
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)

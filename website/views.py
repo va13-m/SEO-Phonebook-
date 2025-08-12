@@ -1,11 +1,12 @@
+from operator import or_
 from typing import Counter
-from flask import Blueprint, render_template
+from flask import Blueprint, jsonify, request, render_template
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta
 import requests
 import random
 import os
-
+from . import db 
 from website.models import User
 
 import random 
@@ -52,19 +53,6 @@ def get_unsplash_image(query):
 def home():
     users = User.query.all()
 
-    # tag_images = [
-    #     "https://img.freepik.com/free-vector/paper-style-wavy-red-background_52683-74121.jpg?semt=ais_hybrid&w=740&q=80",
-    #     "https://img.freepik.com/free-vector/abstract-red-wave-background_343694-4197.jpg",
-    #     "https://img.freepik.com/premium-vector/red-paper-cut-abstract-background_142989-137.jpg?semt=ais_hybrid&w=740&q=80",
-    #     "https://img.freepik.com/free-vector/abstract-wavy-red-background_53876-96409.jpg?semt=ais_hybrid&w=740&q=80",
-    #     "https://img.freepik.com/free-vector/paper-cut-abstract-background_125964-562.jpg?semt=ais_hybrid&w=740&q=80",
-    #     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOwBsPoV2wK9P-V119KuFDQNJIzeiPLbXC7RXlbMab51tneJW6zrEJ84KLYDYEY25LVDc&usqp=CAU",
-    #     "https://img.freepik.com/free-vector/red-business-abstract-banner-background-with-fluid-gradient-wavy-shapes-vector-design-post_1340-22823.jpg",
-    #     "https://png.pngtree.com/background/20211217/original/pngtree-red-burgundy-background-gradient-slash-picture-image_1589772.jpg",
-    #     "https://img.freepik.com/premium-photo/minimalist-red-wallpaper-with-subtle-splash-pattern-8k-high-quality_899449-47056.jpg"
-    # ]
-    
-
     all_tags = []
     all_interests = []
 
@@ -83,3 +71,32 @@ def home():
     interest_images = [get_unsplash_image(interest) for interest, _ in top_interests]
     
     return render_template("home.html", top_tags=top_tags, top_interests=top_interests, user=current_user,random_pic2=interest_images, random_pic=tag_images)
+
+@views.route('/search_users')
+@login_required
+def search_users():
+    q = request.args.get('q', '').strip()
+
+    if not q:
+        return jsonify([])
+
+    results = User.query.filter(
+        (User.first_name.ilike(f"%{q}%")) |
+        (User.email.ilike(f"%{q}%")) |
+        (User.phone_number.ilike(f"%{q}%")) |
+        (User.city.ilike(f"%{q}%")) |
+        (User.state.ilike(f"%{q}%")) |
+        (User.tags.ilike(f"%{q}%")) |
+        (User.interests.ilike(f"%{q}%")) |
+        (User.id.cast(db.String).ilike(f"%{q}%"))
+    ).all()
+
+    # Return JSON (only what’s needed for display)
+    return jsonify([
+        {
+            "id": user.id,
+            "name": user.first_name,
+            "email": user.email
+        }
+        for user in results
+    ])
