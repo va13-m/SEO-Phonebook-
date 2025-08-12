@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+
 <title>{% block title %}Sign Up{% endblock %}</title>
 
 {% block content %}
-<h1>This is the sign-up page</h1>
+<br/>
 <form method="POST">
   <h3 align="center">Sign Up</h3>
   <div class="form-group">
@@ -114,7 +115,10 @@
       placeholder="Confrim password"
     />
   </div>
-  <br />
-  <button type="submit" class="btn btn-primary">Submit</button>
+<br/>
+  <button type="submit" class="btn btn-primary home-button">Submit</button>
 </form>
+
+<br/>
+
 {% endblock %}

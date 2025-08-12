@@ -2,12 +2,14 @@
 <title>{% block title %}Home{% endblock %}</title>
 
 {% block content %}
-</br>
+<br/>
+<br/>
+<div class="home-title">
+  <h1>We Propel Human Connectivity</h1>
+</div>
 
-<h1>We propel human connectivity.</h1>
-
-</br>
-</br>
+<br/>
+<br/>
 <style>
   .card-img-top {
     width: 100%;
@@ -16,48 +18,48 @@
   }
 </style>
 <h3> Trending Tags 
-<a href="{{ url_for('tags.all_tags') }}" class="btn btn-primary" style="float: right;">View All Tags</a>
+<a href="{{ url_for('tags.all_tags') }}" class="btn btn-primary home-button" style="float: right;">View All Tags</a>
 </h3>
 <div class="card-deck">
   {% for tag, count in top_tags %}
     {% set img_index = (loop.index0 % random_pic|length) %}
-    <div class="card">
+    <div class="card card-border">
       <img class="card-img-top" src="{{ random_pic[img_index] }}" alt="{{ tag }}">
       <div class="card-body">
         <h5 class="card-title">{{ tag|capitalize }}</h5>
         <p class="card-text">Trending with {{ count }} mentions</p>
       </div>
-      <div class="card-footer">
-        <a href="{{ url_for('tags.tag_page', tag_name=tag) }}" class="text-muted">Learn More</a>
+      <div class="card-footer learn-more">
+        <a href="{{ url_for('tags.tag_page', tag_name=tag) }}" class="text-muted ">Learn More</a>
       </div>
     </div>
   {% endfor %}
 </div>
 
-</br>
-</br>
+<br/>
+<br/>
 
 <h3> Trending Interests 
-  <a href="{{ url_for('interest.all_interests') }}" class="btn btn-primary" style="float: right;">View All Interests</a>
+  <a href="{{ url_for('interest.all_interests') }}" class="btn btn-primary home-button" style="float: right;">View All Interests</a>
 
 </h3>
 <div class="card-deck">
   {% for interest, count in top_interests %}
     {% set img_index = (loop.index0 % random_pic2|length) %}
-    <div class="card">
+    <div class="card card-border">
       <img class="card-img-top" src="{{ random_pic2[img_index] }}" alt="{{ tag }}">
       <div class="card-body">
         <h5 class="card-title">{{ interest|capitalize }}</h5>
         <p class="card-text">Trending with {{ count }} mentions</p>
       </div>
-      <div class="card-footer">
+      <div class="card-footer learn-more">
         <a href="{{ url_for('interest.interest_page', interest_name=interest)}}" class="text-muted">Learn More</a>
       </div>
     </div>
   {% endfor %}
 </div>
 
-</br>
-</br
+<br/>
+<br/>
 
 {% endblock %}

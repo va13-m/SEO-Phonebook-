@@ -2,7 +2,7 @@
 {% block title %}All Interests{% endblock %}
 
 {% block content %}
-</br>
+<br/>
 <h2 class="mb-4">Explore All Interests</h2>
 
 <div class="container">
@@ -10,11 +10,11 @@
 
     {% for interest in interests_cards %}
     <div class="col">
-      <div class="card text-white bg-light-i mb-3 h-50 d-flex flex-column text-primary" style="min-height: 250px;">
+      <div class="card text-white bg-light mb-3 h-50 d-flex flex-column text-primary" style="min-height: 250px;">
         <div class="card-body custom-card-text-i">
           <h5 class="card-title-i">{{ interest.name }}</h5>
           <p class="card-text">{{ interest.quote }}</p>
-          <a href="{{ url_for('interest.interest_page', interest_name=interest) }}" class="btn btn-sm btn-primary custom-card-btn-i">Learn More</a>
+          <a href="{{ url_for('interest.interest_page', interest_name=interest) }}" class="btn btn-sm btn-primary custom-card-btn">Learn More</a>
         </div>
       </div>
     </div>
