@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mt-4">
   <h2>Update Your Profile</h2>
-
+  <br/>
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -54,7 +54,8 @@
       {{ form.interests(class="form-control") }}
     </div>
 
-    {{ form.submit(class="btn btn-primary") }}
+    {{ form.submit(class="btn btn-primary update-button") }}
   </form>
 </div>
+<br/>
 {% endblock %}

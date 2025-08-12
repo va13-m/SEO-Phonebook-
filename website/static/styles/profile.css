@@ -1,0 +1,30 @@
+.del-button{
+    background-color: rgb(207, 22, 47) !important;
+    border-color: rgba(240, 227, 227, 0.699) !important;
+}
+
+
+.del-button:hover{
+    background-color: rgb(130, 19, 35) !important;
+    border-color: rgba(106, 48, 48, 0.699) !important;
+}
+
+
+.update-button{
+    background-color: rgb(92, 43, 49) !important;
+    border-color: rgba(240, 227, 227, 0.699) !important;
+}
+
+
+.update-button:hover{
+    background-color: rgb(37, 16, 20) !important;
+    border-color: rgba(106, 48, 48, 0.699) !important;
+}
+
+.box-border{
+    border: dashed rgba(113, 42, 42, 0.527);
+}
+
+.box-header{
+    background-color: rgba(255, 224, 224, 0.527);
+}

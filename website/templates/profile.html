@@ -4,14 +4,13 @@
 {% block content %}
 <div class="container mt-4">
   <h1>Hello, {{ user.first_name }}!</h1>
+  <br/>
 
-
-  <div class="card">
-  <div class="card-header">
-    {{user.first_name}}
+  <div class="card box-border">
+  <div class="card-header box-header">
+    <h5 class="card-title ">Welcome to Your User Dashboard!</h5>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Welcome to Your User Dashboard!</h5>
     <p class="card-text">
         <strong>Name: </strong> {{user.first_name}}</br>
         <strong>Email: </strong>{{user.email}} </br>
@@ -25,8 +24,8 @@
     </p>
     {% if current_user.id == user.id %}
     <a href="/logout" class="btn btn-secondary btn-sm">Logout</a>
-    <a href="{{ url_for('profile.update_profile', id=user.id) }}" class="btn btn-secondary btn-sm">Update Profile</a>
-    <a href="{{ url_for('profile.delete', id=user.id) }}" class="btn btn-secondary btn-sm">Delete Profile</a>
+    <a href="{{ url_for('profile.update_profile', id=user.id) }}" class="btn btn-secondary btn-sm update-button">Update Profile</a>
+    <a href="{{ url_for('profile.delete', id=user.id) }}" class="btn btn-secondary btn-sm del-button">Delete Profile</a>
     {%endif%}
   </div>
 </div>
