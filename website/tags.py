@@ -3,7 +3,6 @@ from flask_socketio import join_room, send
 from .models import User
 from flask_login import  login_required, current_user
 from . import socketio
-import socketio
 import random 
 
 # Blueprint for tags

@@ -4,7 +4,6 @@ from flask_socketio import join_room, send
 from flask_login import login_required, current_user
 from . import socketio
 import random 
-import socketio
 
 # Create a Blueprint for interests
 interests = Blueprint('interest', __name__)
