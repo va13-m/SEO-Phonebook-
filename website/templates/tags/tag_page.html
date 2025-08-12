@@ -4,7 +4,6 @@
 {% block content %}
 <div style="display: flex; gap: 20px;">
   
-  <!-- Chat Column -->
   <div style="flex: 1; border: 1px solid #ccc; padding: 10px;">
     <h3>Chat for "{{ tag_name }}"</h3>
     <div id="messages" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 5px;"></div>
@@ -14,7 +13,6 @@
     </div>
   </div>
 
-  <!-- Users Column -->
   <div style="flex: 1;">
     <h3>People with this tag</h3>
     {% if users %}
