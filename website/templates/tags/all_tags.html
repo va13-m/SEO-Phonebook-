@@ -1,25 +1,28 @@
-{% extends "base.html" %}
-{% block title %}All Tags{% endblock %}
-
-{% block content %}
-<br/>
+{% extends "base.html" %} {% block title %}All Tags{% endblock %} {% block
+content %}
+<br />
 <h2 class="mb-4">Explore All Tags</h2>
 
 <div class="container">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-
     {% for tag in tag_cards %}
     <div class="col">
-      <div class="card text-white bg-light mb-3 h-50 d-flex flex-column text-primary" style="min-height: 250px;">
+      <div
+        class="card text-white bg-light mb-3 h-50 d-flex flex-column text-primary"
+        style="min-height: 250px"
+      >
         <div class="card-body custom-card-text">
           <h5 class="card-title">{{ tag.name }}</h5>
           <p class="card-text">{{ tag.quote }}</p>
-          <a href="{{ url_for('tags.tag_page', tag_name=tag.name) }}" class="btn btn-sm btn-primary custom-card-btn">Learn More</a>
+          <a
+            href="{{ url_for('tags.tag_page', tag_name=tag.name) }}"
+            class="btn btn-sm btn-primary custom-card-btn"
+            >Learn More</a
+          >
         </div>
       </div>
     </div>
     {% endfor %}
-
   </div>
 </div>
 {% endblock %}

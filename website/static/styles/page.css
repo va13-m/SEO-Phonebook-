@@ -1,0 +1,52 @@
+.list-border {
+  border: 1px solid rgba(201, 82, 82, 0.872) !important;
+  background-color: #fae9e9;
+}
+
+.list-text {
+  color: #870909;
+  font-weight: bold;
+}
+
+.list-text:hover {
+  color: #c94d4d;
+  font-weight: bold;
+}
+
+.send-btn {
+  background-color: rgb(114, 25, 25) !important;
+  border-color: rgba(106, 48, 48, 0.699) !important;
+}
+
+.send-btn-text {
+  color: #ffffff;
+}
+
+.page-title h1 {
+  text-align: center;
+
+  font-style: bold;
+  font-family: "Playfair Display", "Bookman", serif;
+
+  font-size: 30px;
+  font-weight: 800;
+  color: #222;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-template-rows: 27px 0;
+  grid-gap: 20px;
+  align-items: center;
+}
+
+.page-title h1:after,
+.page-title h1:before {
+  content: " ";
+  display: block;
+  border-bottom: 1px solid #c50000;
+  border-top: 1px solid #c50000;
+  height: 5px;
+  background-color: #f8f8f8;
+}
